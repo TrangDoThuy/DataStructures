@@ -1,0 +1,11 @@
+1. Stack:
+top : get the value of the top item
+push : add a new item to the top
+pop : remove an item from the top
+
+void int_stack::push(int x) // Add a new item to the top of the stack
+  data[++top_index] = x;
+  
+void int_stack::pop() // Remove the top item from the stack
+  --top_index;
+  
