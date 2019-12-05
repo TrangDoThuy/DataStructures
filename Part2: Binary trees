@@ -30,4 +30,10 @@ void btree_inorder(BTnode<T>* root,void (*action)(BTnode<T>* r)) // Expect a fun
     btree_inorder(root->get_right(), action);
   }
 }
-
+int main() // Build the tree from bottom up
+{ // Create the tree
+  BTnode<int>* node5 = new BTnode<int>(5);
+  BTnode<int>* node9 = new BTnode<int>(9);
+  BTnode<int>* root = new BTnode<int>(8, node5, node9);
+  cout << "\nInorder traversal result:\n"; btree_inorder(root, print);
+  }
