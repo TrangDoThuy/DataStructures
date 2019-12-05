@@ -8,4 +8,74 @@ void int_stack::push(int x) // Add a new item to the top of the stack
   
 void int_stack::pop() // Remove the top item from the stack
   --top_index;
+
+2. Queue:
+front : get the value of the front item
+enqueue : add a new item to the back
+dequeue : remove an item from the front
+
+//circular queue of int data:
+class int_queue // Circular queue
+{
+private:
+int data[BUFFER_SIZE]; // Use an array to store data
+int num_items; // Number of items on the queue
+int first; // Index of the first item; start from 0
+
+//***difficult:
+void int_queue::enqueue(int x){ // Add a new item to the back of the queue
+
+  if (!full()){
+    data[(first+num_items) % BUFFER_SIZE] = x;
+    ++num_items;
+  } 
+  else {
+    cerr << "Error: Queue is full; can't add (" << x << ")!" << endl;
+    exit(-1);
+    }
+}
+
+
+void int_queue::dequeue(){ // Remove the front item from the queue
+
+  if (!empty()){
+    first = (first+1) % BUFFER_SIZE;
+    --num_items;
+  } 
+  else {
+    cerr << "Error: Queue is empty; can't remove any data!" << endl;
+    exit(-1);
+  }
+}
+
+// I havent understand this
+template <typename T, typename Sequence = deque<T> >
+class Stack{
+  protected:
+    Sequence c; // Underlying container
+  public:
+    typedef typename Sequence::value_type value_type;
+    typedef typename Sequence::reference reference;
+    typedef typename Sequence::const_reference const_reference;
+    typedef typename Sequence::size_type size_type;
+    // (Default) Constructor
+    explicit stack(const Sequence& _c = Sequence()) : c(_c) {}
+    // Return true if the stack is empty
+    bool empty() const { return c.empty(); }
+    // Return a R/W reference to the data at the first element
+    reference top() { return c.back(); }
+    // Read-only version of top()
+    const_reference top() const { return c.back(); }
+    // Create an element at the top of the stack and assign x to it
+    void push(const value_type& x) { c.push_back(x); }
+    // Shrink the stack by one. Note that no data is returned.
+    void pop() { c.pop_back(); }
+};
+
+
+
+
+  
+  
+  
   
