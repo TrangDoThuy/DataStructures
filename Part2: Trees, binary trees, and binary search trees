@@ -1,0 +1,33 @@
+1. Binary tree
+#include <iostream> /* File: btree.h */
+using namespace std;
+template <class T> class BTnode{
+  public:
+    BTnode(const T& x, BTnode* L = nullptr, BTnode* R = nullptr)
+      : data(x), left(L), right(R) { }
+    ˜BTnode(){
+        delete left; //you can delete nullptr, but you cannot delete garbage
+        delete right;// calling destructor of BTnode
+        //to delete whole tree, you just delete root
+        cout << "delete the node with data = " << data << endl;
+      }
+    const T& get_data() const { return data; }
+    BTnode* get_left() const { return left; }
+    BTnode* get_right() const { return right; }
+    private:
+      T data; // Stored information
+      BTnode* left; // Left child
+      BTnode* right; // Right child
+};
+
+2. Inorder traversal: LCR: left- current - right:
+template <class T>
+void btree_inorder(BTnode<T>* root,void (*action)(BTnode<T>* r)) // Expect a function on r->data
+{
+  if (root){
+    btree_inorder(root->get_left(), action);
+    action(root); // e.g. print out root->data
+    btree_inorder(root->get_right(), action);
+  }
+}
+
