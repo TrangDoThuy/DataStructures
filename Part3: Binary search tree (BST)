@@ -1,0 +1,72 @@
+//***important: BST implementation:
+template <typename T> class BST /* File: bst.h */{
+  private:
+    struct BSTnode{ // A node in a binary search tree     
+      T value;
+      BST left; // Left sub-tree or called left child
+      BST right; // Right sub-tree or called right child
+      BSTnode(const T& x) : value(x), left(), right() { }
+      // Assume a copy constructor for T
+      BSTnode(const BSTnode& node) // Copy constructor
+        : value(node.value), left(node.left), right(node.right) { }
+      ˜BSTnode() { cout << "delete: " << value << endl; }
+    };
+    BSTnode* root = nullptr;
+  public:
+    BST() = default; // Empty BST, later we can define new constructor, but we can still have default constructor from C++
+    ˜BST() { delete root; } // Actually recursive
+    //you will kill BSTnode that has 1 data and 2 BST, before you kill 2 BST, you need to call destructor
+    
+    BST(const BST& bst) // Deep copy using copy constructor
+    {
+      if (bst.is_empty())
+        return;
+      root = new BSTnode(*bst.root); // Recursive
+     }
+     
+ //**********BST Code search:
+ template <typename T> /* File: bst-contains.cpp */
+bool BST<T>::contains(const T& x) const
+{
+  if (is_empty()) // Base case #1
+    return false;
+  if (root->value == x) // Base case #2
+    return true;
+  else if (x < root->value) // Recursion on the left sub-tree
+    return root->left.contains(x);
+  else // Recursion on the right sub-tree
+    return root->right.contains(x);
+}
+//*******BST Code: deletion:
+template <typename T> /* File: bst-remove.cpp */
+void BST<T>::remove(const T& x) // leftmost item of its right subtree
+{
+  if (is_empty()) // Item is not found; do nothing
+    return;
+  if (x < root->value) // Remove from the left subtree
+    root->left.remove(x);
+  else if (x > root->value) // Remove from the right subtree
+    root->right.remove(x);
+  else if (root->left.root && root->right.root) // Found node has 2 children
+  {
+    root->value = root->right.find_min(); // operator= defined?
+    root->right.remove(root->value); // min is copied; can be deleted now
+  }
+  else // Found node has 0 or 1 child
+  {
+    BSTnode* deleting_node = root; // Save the root to delete first
+    root = (root->left.is_empty()) ? root->right.root : root->left.root;
+    // Set subtrees to nullptr before removal due to recursive destructor
+    deleting_node->left.root = deleting_node->right.root = nullptr;
+    delete deleting_node;
+   }
+}
+
+
+
+
+
+
+    
+    
+    
