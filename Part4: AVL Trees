@@ -1,0 +1,50 @@
+//***
+AVL& right_subtree() { return root->right; }
+const AVL& right_subtree() const { return root->right; } // constant member function for const object
+// AVL Code: Left Rotation:
+template <typename T>
+void AVL<T>::rotate_left() // The calling AVL node is node a
+{
+  AVLnode* b = right_subtree().root; // Points to node b
+  right_subtree() = b->left;
+  b->left = *this; // Note: *this is node a
+  fix_height(); // Fix the height of node a
+  this->root = b; // Node b becomes the new root
+  fix_height(); // Fix the height of node b, now the new root
+}
+//*** insert and balancing part:
+template <typename T>
+void AVL<T>::insert(const T& x)
+{
+  if (is_empty()) // Base case
+    root = new AVLnode(x);
+  else if (x < root->value)
+    left_subtree().insert(x); // Recursion on the left sub-tree
+  else if (x > root->value)
+    right_subtree().insert(x); // Recursion on the left sub-tree
+  balance(); // Re-balance the tree at every visited node
+}
+
+/* Goal: To balance an AVL tree */
+template <typename T>
+void AVL<T>::balance()
+{
+  if (is_empty())
+    return;
+  fix_height();
+  int balance_factor = bfactor();
+  if (balance_factor == 2) // Right subtree is taller by 2
+  {
+    if (right_subtree().bfactor() < 0) // Case 4: insertion to the L of RT
+      right_subtree().rotate_right();
+    return rotate_left(); // Cases 1 or 4: Insertion to the R/L of RT
+  }
+  else if (balance_factor == -2) // Left subtree is taller by 2
+  {
+   if (left_subtree().bfactor() > 0) // Case 3: insertion to the R of LT
+    left_subtree().rotate_left();
+  return rotate_right(); // Cases 2 or 3: insertion to the L/R of LT
+  }
+// Balancing is not required for the remaining cases
+}
+
