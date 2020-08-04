@@ -73,3 +73,15 @@ Algorithm split(u)
 8. return the best split found
 
 ```
+### Splitting an Internal Node
+Algorithm split(u)
+/* u is an internal node */
+1. m = the number of points in u
+2. sort the rectangles in u by their left boundaries on the x-dimension
+3. for i = 0.4B to m − 0.4B
+4.      S1 ← the set of the first i rectangles in the list
+5.      S2 ← the set of the other i rectangles in the list
+6.      calculate the perimeter sum of MBR(S1) and MBR(S2); record it if this is the best split so far
+7. Repeat Lines 2-6 with respect to the right boundaries on the x-dimension
+8. Repeat Lines 2-7 w.r.t. the y-dimension
+9. return the best split found
