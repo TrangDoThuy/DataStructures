@@ -17,10 +17,12 @@ For each **v_i (i ≤ f )**, **u** stores the ***minimum bounding rectangle(MBR)
 
 ### Answering a Range Query
 **Algorithm** range-query(u,r)
+```
 1. **if** u is a leaf **then**
 2.      report all points stored at u that are covered by r
 3. **else**
 4.      **for** each child v of u **do**
 5.          **if** MBR(v) intersects r **then**
 6.              range-query(v,r)
+```
 
