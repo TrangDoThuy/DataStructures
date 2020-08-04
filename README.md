@@ -74,6 +74,7 @@ Algorithm split(u)
 
 ```
 ### Splitting an Internal Node
+```
 Algorithm split(u)
 /* u is an internal node */
 1. m = the number of points in u
@@ -85,3 +86,4 @@ Algorithm split(u)
 7. Repeat Lines 2-6 with respect to the right boundaries on the x-dimension
 8. Repeat Lines 2-7 w.r.t. the y-dimension
 9. return the best split found
+```
