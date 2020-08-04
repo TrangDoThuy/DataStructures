@@ -25,4 +25,20 @@ For each **v_i (i ≤ f )**, **u** stores the ***minimum bounding rectangle(MBR)
 5.          if MBR(v) intersects r then
 6.              range-query(v,r)
 ```
-
+### R-Tree Construction: A Common Principle
+In general, the construction algorithm of the R-tree aims at minimizing the **perimeter sum** of all the MBRs
+### Insertion
+Let **p** be the point being inserted
+```
+Algorithm insert(u, p)
+1. if u is a leaf node then
+2.     add p to u
+3.     if u overflows then
+        /* namely, u has B + 1 points */
+4.          handle-overflow(u)
+5. else
+6.     v ← choose-subtree(u, p)
+        /* which subtree under u should we insert p into? */
+7.     insert(v, p)
+insert(root,p)
+```
