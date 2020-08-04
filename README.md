@@ -42,3 +42,20 @@ Algorithm insert(u, p)
 7.     insert(v, p)
 insert(root,p)
 ```
+### Choose-subtree
+Return the child whose MBR requires the **minimum** increase in perimeter to cover p.
+Break ties by favoring the smallest MBR
+### Overflow Handling
+```
+Algorithm handle-overflow(u)
+1. split(u) into u and u'
+2. if u is the root then
+3.      create a new root with u and u' as its child nodes
+4. else
+5.      w ← the parent of u
+6.      update MBR(u) in w
+7.      add u' as a child of w
+8.      if w overflows then
+9.          handle-overflow(w)
+
+```
