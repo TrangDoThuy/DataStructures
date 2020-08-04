@@ -59,3 +59,17 @@ Algorithm handle-overflow(u)
 9.          handle-overflow(w)
 
 ```
+### Splitting a leaf node
+There is no guarantee that we can find the best split - typical "trading quality for efficiency"
+```
+Algorithm split(u)
+1. m = the number of points in u
+2. sort the points of u on x-dimension
+3. for i = 0.4B to m − 0.4B
+4.      S1 ← the set of the first i points in the list
+5.      S2 ← the set of the other i points in the list
+6.      calculate the perimeter sum of MBR(S1) and MBR(S2); record it if this is the best split so far
+7. Repeat Lines 2-6 with respect to y-dimension
+8. return the best split found
+
+```
