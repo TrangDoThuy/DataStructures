@@ -14,3 +14,13 @@ Let S be a set of points in 2D space. Given an axis-parallel rectangle q, a rang
 For any node **u**, denote by **S_u** the set of points in the subtree of **u**.
 Consider now **u** to be an internal node with child nodes **v_1, ..., v_f** ***(f ≤ B)***.
 For each **v_i (i ≤ f )**, **u** stores the ***minimum bounding rectangle(MBR)*** of **S_vi**, denoted as **MBR(v_i)**
+
+### Answering a Range Query
+**Algorithm** range-query(u,r)
+1. **if** u is a leaf **then**
+2.      report all points stored at u that are covered by r
+3. **else**
+4.      **for** each child v of u **do**
+5.          **if** MBR(v) intersects r **then**
+6.              range-query(v,r)
+
