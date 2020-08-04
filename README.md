@@ -87,3 +87,5 @@ Algorithm split(u)
 8. Repeat Lines 2-7 w.r.t. the y-dimension
 9. return the best split found
 ```
+## References:
+https://www.cse.cuhk.edu.hk/~taoyf/course/infs4205/lec/rtree.pdf
